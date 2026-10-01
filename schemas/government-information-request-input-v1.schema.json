@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat-japan-government-information/government-information-request-input/v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "jurisdiction", "topic", "question"],
+  "properties": {
+    "schema": { "const": "hathq://hat-japan-government-information/government-information-request-input/v1" },
+    "jurisdiction": { "const": "JP" },
+    "topic": { "enum": ["laws", "tax", "statistics", "administration"] },
+    "question": { "type": "string", "minLength": 1, "maxLength": 2000 },
+    "administrative_area_code": { "type": "string", "pattern": "^JP-(0[1-9]|[1-3][0-9]|4[0-7])$" },
+    "as_of_date": { "type": "string", "format": "date" }
+  }
+}

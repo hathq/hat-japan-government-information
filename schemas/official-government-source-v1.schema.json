@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat-japan-government-information/official-government-source/v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "publisher", "origin", "topic", "access"],
+  "properties": {
+    "id": { "type": "string" },
+    "publisher": { "type": "string" },
+    "origin": { "type": "string", "format": "uri" },
+    "topic": { "enum": ["laws", "tax", "statistics", "administration"] },
+    "access": { "enum": ["public-https", "public-https-or-registered-api"] }
+  }
+}

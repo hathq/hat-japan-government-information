@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hathq://hat-japan-government-information/government-information-request-projection/v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "latest_request_digest_sha256", "status"],
+  "properties": {
+    "schema": { "const": "hathq://hat-japan-government-information/government-information-request-projection/v1" },
+    "latest_request_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "status": { "enum": ["prepared", "needs-user-input"] }
+  }
+}

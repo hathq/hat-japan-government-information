@@ -1,0 +1,134 @@
+{
+  "schema": "hathq://hat/package/v2",
+  "package_id": "hat/japan-government-information",
+  "repository_id": "hat-japan-government-information",
+  "version": "0.10.0",
+  "specification_version": "1.0.0",
+  "manifest": {
+    "schema": "hathq://hat/manifest/v1",
+    "id": "hat/japan-government-information",
+    "name": "Japan Government Information",
+    "version": "0.10.0",
+    "capabilities": ["select-official-japan-government-source", "prepare-source-preserving-request"],
+    "decision_boundaries": ["no-legal-interpretation", "no-tax-determination", "do-not-fill-unresolved"],
+    "input_classifications": ["internal-confidential"],
+    "output_classification": "internal-confidential",
+    "permissions": [
+      {
+        "resource": "owner-government-information-request",
+        "operations": ["read-summary", "propose-scenario"],
+        "mode": "propose"
+      }
+    ]
+  },
+  "operations": [
+    {
+      "id": "hathq://vocabulary/action/prepare-government-information-request/v1",
+      "input_schema": "hathq://hat-japan-government-information/government-information-request-input/v1",
+      "output_schema": "hathq://hat-japan-government-information/government-information-request-output/v1",
+      "context_plan": {
+        "id": "prepare-government-information-request-context",
+        "selectors": [
+          {
+            "namespace": "owner-jurisdiction",
+            "projection_schema": "hathq://hat-japan-government-information/government-information-request-input/v1",
+            "required": true
+          }
+        ],
+        "unresolved_policy": "record-unresolved"
+      },
+      "reducer": {
+        "id": "prepare-government-information-request-reducer",
+        "strategy": "typed-domain-event",
+        "event_schema": "hathq://hat-japan-government-information/government-information-request-event/v1",
+        "projection_schema": "hathq://hat-japan-government-information/government-information-request-projection/v1",
+        "conflict_policy": "reject"
+      },
+      "procedure": {
+        "id": "prepare-government-information-request-procedure",
+        "steps": [
+          {
+            "action_id": "hathq://vocabulary/action/prepare-government-information-request/v1",
+            "input_schema": "hathq://hat-japan-government-information/government-information-request-input/v1",
+            "output_schema": "hathq://hat-japan-government-information/government-information-request-output/v1"
+          }
+        ]
+      },
+      "handler": {
+        "kind": "declarative-hat",
+        "reference": "prepare-government-information-request-procedure"
+      }
+    }
+  ],
+  "catalog": {
+    "schema": "hathq://hat/semantic-catalog/v1",
+    "identity": {
+      "catalog_id": "hat-japan-government-information",
+      "version": 1,
+      "digest_sha256": "6173b676f804759cb1b484b795b31eec95dfe837edb4f599203911c36a591096"
+    },
+    "owner_repository_id": "hat-japan-government-information",
+    "foundation": false,
+    "dependencies": [
+      {
+        "catalog_id": "hathq.foundation",
+        "version": 1,
+        "digest_sha256": "6b618dff030e551bafd6b1a70fe6daf71e2873de9c2230f4cf71e9ac9fbf2c0f"
+      }
+    ],
+    "incompatibilities": [],
+    "terms": [
+      {
+        "reference": {
+          "catalog_id": "hat-japan-government-information",
+          "catalog_digest_sha256": "6173b676f804759cb1b484b795b31eec95dfe837edb4f599203911c36a591096",
+          "term_id": "hathq://vocabulary/concept/official-government-information-source/v1",
+          "version": 1,
+          "definition_digest_sha256": "68f94539d4a03c7ae93d6a37e17a6b6b66dc5372d063b7d045eccc88d8ae1efa",
+          "kind": "concept"
+        },
+        "wire_schema": "hathq://hat-japan-government-information/official-government-source/v1",
+        "semantic_icon": "source",
+        "dependencies": [],
+        "is_a": [],
+        "domain": [],
+        "range": []
+      },
+      {
+        "reference": {
+          "catalog_id": "hat-japan-government-information",
+          "catalog_digest_sha256": "6173b676f804759cb1b484b795b31eec95dfe837edb4f599203911c36a591096",
+          "term_id": "hathq://vocabulary/action/prepare-government-information-request/v1",
+          "version": 1,
+          "definition_digest_sha256": "b6098427070dd725b8beeb36975eb680c981522b300c74b2a6f7404a5052a8e3",
+          "kind": "action"
+        },
+        "wire_schema": "hathq://hat-japan-government-information/government-information-request-input/v1",
+        "semantic_icon": "action",
+        "dependencies": [],
+        "is_a": [],
+        "domain": [],
+        "range": []
+      }
+    ],
+    "lexicalizations": [],
+    "frames": [
+      {
+        "frame_id": "prepare-government-information-request-frame",
+        "definition_digest_sha256": "f2b285d3773ae70563c9d94a24fdd0616d3152eeb46847f415cf9d1ecbac7de1",
+        "predicate": {
+          "catalog_id": "hat-japan-government-information",
+          "catalog_digest_sha256": "6173b676f804759cb1b484b795b31eec95dfe837edb4f599203911c36a591096",
+          "term_id": "hathq://vocabulary/action/prepare-government-information-request/v1",
+          "version": 1,
+          "definition_digest_sha256": "b6098427070dd725b8beeb36975eb680c981522b300c74b2a6f7404a5052a8e3",
+          "kind": "action"
+        },
+        "roles": [
+          { "role": "actor", "required": true, "accepted_kinds": ["entity-type"] },
+          { "role": "object", "required": true, "accepted_kinds": ["concept"] }
+        ]
+      }
+    ]
+  }
+}
