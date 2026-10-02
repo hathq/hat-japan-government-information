@@ -1,20 +1,42 @@
-# Japan Government Information HAT
+# hat-japan-government-information
 
-This external HAT turns an exact user-selected Japanese public-information topic into a bounded, source-preserving research request. It does not interpret law, decide tax treatment, guess an administrative area, or fetch network content itself.
+利用者が選んだ日本の公的情報の調査対象を、公式出典と未解決条件を保持した要求にできます。法的判断や税務判断は行いません。
 
-The released source directory is intentionally small and names official publishers and HTTPS origins. Network retrieval remains an externally governed communication operation. Unknown scope stays unresolved and is returned to Hatter for user confirmation.
+## 利用前の確認
 
-The worker follows Hatter's lease protocol and processes one content-addressed invocation at a time.
+実装済みの範囲、必要な依存関係、検証コマンドを以下の英語説明に併記しています。操作・配備・公開は、それぞれの権限と設定を確認してから実施してください。
 
-`scripts/prepare-owner-local-federation.mjs` creates a one-hour, signed local
-execution-directory fixture from an already signed official catalog. It verifies
-the catalog and package before publishing the exact owner-local worker location,
-keeps no signing secret, and is intended for product acceptance and local HAT
-development. Production iHAT/Crowsi federation refresh remains a deployment
-service responsibility; Hatter does not invent or bypass a placement.
+## 使い方
 
-After selecting that location, `scripts/verify-owner-local-scenario.mjs` runs
-the same public Hatter CLI used by a user, registers the external worker,
-submits one content-addressed request, verifies the e-Gov result and its
-unresolved date, and correlates the final Hatter status. The script never
-imports Hatter source and removes its temporary input/output stores.
+リポジトリ内のサンプル・スキーマ・実装を確認し、用途に必要な入力を明示して利用します。下記のGetting startedに、現行設定に対応する検証コマンドを示しています。
+
+検証結果は実行した範囲だけを示します。未実装の機能、未設定の接続、配備環境の確認を合格扱いにしないでください。
+
+## English
+
+Prepare a source-preserving research request for an explicitly selected Japanese public-information topic.
+
+## What you can do
+
+- Use the declared official-publisher directory.
+- Keep topic scope and unresolved information visible.
+
+## Current scope
+
+The package does not interpret law or decide tax treatment. Retrieval is performed through separately governed communication.
+
+Package distribution is not activated by this documentation. Use the checked-in source and the declared dependency versions; published availability must be verified separately.
+
+## Getting started
+
+Install Rust 1.97 or newer and make the declared dependencies available. Use the configured private registry when a dependency is not distributed publicly. Run from this repository:
+
+```sh
+cargo test --locked
+```
+
+## Documentation and source
+
+[Usage guide](docs/getting-started.md)
+
+[Schemas](schemas) · [Implementation and public interfaces](src) · [Verification cases](tests) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md) · [License](LICENSE) · [Attribution notices](NOTICE)
