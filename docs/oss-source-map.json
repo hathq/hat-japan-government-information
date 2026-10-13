@@ -1,0 +1,109 @@
+{
+  "repository": "hathq/hat-japan-government-information",
+  "purpose": "利用者が選んだ日本の公的情報の調査対象を、公式出典と未解決条件を保持した要求にできます。法的判断や税務判断は行いません。 / Prepare a source-preserving research request for an explicitly selected Japanese public-information topic.",
+  "responsibility_boundary": "This HAT role owns its declared product invocation and exact capability/scope binding. Shared transport, document handling and authorization primitives use their managed owners. A role declaration alone is not evidence of an implemented external action.",
+  "packages": [
+    {
+      "manifest": "Cargo.toml",
+      "package": "hat-japan-government-information",
+      "ecosystem": "rust",
+      "description": null,
+      "interfaces": {
+        "lib": "src/lib.rs",
+        "features": {},
+        "bins": [
+          {
+            "name": "hat-japan-government-information-worker",
+            "path": "src/main.rs"
+          }
+        ],
+        "public_modules": [],
+        "public_reexports": [],
+        "implicit_bins": []
+      },
+      "declared_commands": {}
+    }
+  ],
+  "schema_definitions": [
+    "schemas/government-information-request-event-v1.schema.json",
+    "schemas/government-information-request-input-v1.schema.json",
+    "schemas/government-information-request-output-v1.schema.json",
+    "schemas/government-information-request-projection-v1.schema.json",
+    "schemas/official-government-source-v1.schema.json"
+  ],
+  "test_sources": [
+    "src/lib.rs",
+    "src/main.rs",
+    "tests/contracts.rs"
+  ],
+  "example_sources": [],
+  "workflow_definitions": [
+    {
+      "path": ".github/workflows/oss-policy.yml",
+      "jobs": [
+        {
+          "job": "repository-policy",
+          "condition": null,
+          "runs_on": "ubuntu-latest",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": "Verify repository policy",
+              "run": "python3 .github/oss-policy-check.py",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Verify policy regression tests",
+              "run": "cd .github && python3 -m unittest discover -s policy-tests",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Check policy types",
+              "run": "python3 -m venv \"$RUNNER_TEMP/policy-types\"\n\"$RUNNER_TEMP/policy-types/bin/pip\" install -r .github/policy/requirements.txt\n\"$RUNNER_TEMP/policy-types/bin/mypy\" --strict .github/policy .github/oss-policy-check.py .github/policy-tests\n",
+              "uses": null,
+              "condition": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": ".github/workflows/public-dependencies.yml",
+      "jobs": [
+        {
+          "job": "public-dependencies",
+          "condition": null,
+          "runs_on": "ubuntu-24.04",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": "Install declared Rust toolchain",
+              "run": "rustup toolchain install 1.97.1 --profile minimal",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Test the locked official dependency graph",
+              "run": "cargo +1.97.1 test --locked --all-targets",
+              "uses": null,
+              "condition": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "evidence_policy": "Declarations and source paths are not proof of an executed acceptance. Exact CI head and result are recorded separately. No live accounts or production acceptance is inferred."
+}
