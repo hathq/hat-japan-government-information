@@ -2,5 +2,10 @@
   "repository": "hathq/hat-japan-government-information",
   "github_id": 1400278644,
   "package_id": "hat/japan-government-information",
-  "binary": "hat-japan-government-information-worker"
+  "binary": "hat-japan-government-information-worker",
+  "required_workflows": [
+    ".github/workflows/oss-policy.yml",
+    ".github/workflows/public-dependencies.yml",
+    ".github/workflows/release-hat.yml"
+  ]
 }

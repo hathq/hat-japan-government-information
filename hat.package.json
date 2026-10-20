@@ -2,13 +2,13 @@
   "schema": "hathq://hat/package/v2",
   "package_id": "hat/japan-government-information",
   "repository_id": "hat-japan-government-information",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "specification_version": "1.0.0",
   "manifest": {
     "schema": "hathq://hat/manifest/v1",
     "id": "hat/japan-government-information",
     "name": "Japan Government Information",
-    "version": "0.10.0",
+    "version": "0.10.1",
     "capabilities": [
       "select-official-japan-government-source",
       "prepare-source-preserving-request"
